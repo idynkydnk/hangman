@@ -1,11 +1,14 @@
+require_relative "board.rb"
+
 class Game
   
   def initialize
     define_the_word
+    board = Board.new
   end
 
   def play
-    puts @word
+    @word
   end
 
   def define_the_word
