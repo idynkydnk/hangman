@@ -9,7 +9,22 @@ class Game
   end
 
   def define_the_word
-    
-    @word = "word yo"
+    dictionary = File.open("../dictionary.txt")
+
+    loop do
+      possible_word = dictionary.readlines.sample     
+      if possible_word.length > 4 && possible_word.length < 13
+        @word = possible_word
+        dictionary.close
+        return
+      end
+      dictionary.pos = 0
+    end
   end
+
+
+
+
+
+
 end
