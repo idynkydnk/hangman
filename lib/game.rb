@@ -17,17 +17,21 @@ class Game
       @board.update_state(check_guess(guess), guess)
       if @board.winner?
         puts "The word was " + @board.word
-        puts "We have a winner!"
+        puts "We have a winner!\n\n\n"
+        if File.exist?("../games/game#{@board.game_number}.txt")
+          File.delete("../games/game#{@board.game_number}.txt")
+        end
         exit
       end
       if @board.loser?
         puts "\nYou're out of turns! The word was \"" + @board.word + "\"\n\n\n\n"
+        if File.exist?("../games/game#{@board.game_number}.txt")
+          File.delete("../games/game#{@board.game_number}.txt")
+        end
         exit
       end
     end
   end
-
-
 
   def get_guess
     puts "Which letter do you guess?\nEnter \"1\" to save and exit\n\n"
@@ -42,24 +46,20 @@ class Game
   def save_game_state
     puts "saving the game..."
     10.times do |i|
-      if !File.exist?("game#{i}.txt")
-        filename = "game#{i}.txt"
+      if !File.exist?("../games/game#{i}.txt")
+        filename = "../games/game#{i}.txt"
         File.open(filename, 'w') {|f| f.write(YAML.dump(@board)) }
         exit
       end
     end
+    puts "Stop saving so many games! Not saving any more until you delete some."
+    exit
   end
 
-  def load_saved_game game_state
-    puts "should load the game here"
+  def load_saved_game game_state, game_number
     @board = game_state
+    @board.game_number = game_number
     play
   end
-
-
-
-
-
-
 
 end

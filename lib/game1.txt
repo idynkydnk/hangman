@@ -1,6 +1,0 @@
---- !ruby/object:Board
-chosen_letters:
-- g
-- r
-chances: 5
-game_state: '_ _ _ _ _ _ _ _ _ _ r '

@@ -1,5 +1,6 @@
 class Board
   attr_accessor :word
+  attr_accessor :game_number
   def initialize 
     @chosen_letters = []
     @chances = 6 
@@ -10,13 +11,9 @@ class Board
   end
 
   def draw_board
-    #system("clear")
-    puts
-    puts
-    puts
-    puts "Chosen letters: " + @chosen_letters.join(", ")
-    puts "You have " + @chances.to_s + " chances left."
-    puts 
+    system("clear")
+    puts "\n\n\nChosen letters: " + @chosen_letters.join(", ")
+    puts "You have " + @chances.to_s + " chances left.\n"
     puts @game_state   
     puts
   end
@@ -70,8 +67,5 @@ class Board
     else false
     end
   end
-
-
-
 
 end
