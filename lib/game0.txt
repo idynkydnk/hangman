@@ -1,0 +1,7 @@
+--- !ruby/object:Board
+chosen_letters:
+- d
+- e
+- f
+chances: 4
+game_state: '_ _ _ e _ _ _ _ _ '

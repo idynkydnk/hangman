@@ -1,9 +1,11 @@
 class Board
-  def initialize word_length
+  attr_accessor :word
+  def initialize 
     @chosen_letters = []
     @chances = 6 
     @game_state = ""
-    set_game_state(word_length)
+    @word = define_the_word
+    set_game_state
     
   end
 
@@ -18,14 +20,28 @@ class Board
     puts @game_state   
     puts
   end
+  
+  def define_the_word
+    dictionary = File.open("../dictionary.txt")
 
-  def update_state guesses, guess, word_length
+    loop do
+      possible_word = dictionary.readlines.sample.chomp   
+      if possible_word.length > 4 && possible_word.length < 13
+        word = possible_word.downcase
+        dictionary.close
+        return word
+      end
+      dictionary.pos = 0
+    end
+  end
+
+  def update_state guesses, guess
     x = 0
     @chosen_letters << guess
     if guesses.empty?
       @chances -= 1
     end
-    word_length.times do |i|
+    @word.length.times do |i|
       if i == guesses[x]
         @game_state[i*2] = guess
         x += 1
@@ -33,8 +49,8 @@ class Board
     end
   end
 
-  def set_game_state word_length
-    word_length.times do
+  def set_game_state
+    @word.length.times do
       @game_state << "_ "
     end
   end
