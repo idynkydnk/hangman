@@ -5,13 +5,18 @@ class Game
   def initialize
     define_the_word
     @board = Board.new(@word.length)
-    puts @word
-
   end
 
   def play
-    guess = get_guess
-    @board.redraw_board(check_guess(guess), guess, @word.length)
+    loop do
+      guess = get_guess
+      @board.update_state(check_guess(guess), guess, @word.length)
+      if @board.winner?
+        puts "We have a winner!"
+        quit
+      end
+      @board.draw_board
+    end
   end
 
   def define_the_word

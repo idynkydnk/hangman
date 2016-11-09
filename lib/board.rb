@@ -1,26 +1,55 @@
 class Board
   def initialize word_length
     @chosen_letters = []
-    @misses = 6 
-    draw_new_board(word_length)
+    @chances = 6 
+    @game_state = ""
+    set_game_state(word_length)
+    draw_board
     
   end
 
-  def draw_new_board word_length
-    #puts "Chosen letters: " + @chosen_letters.join(", ")
-
-    word_length.times do
-      print "_ "
-    end
+  def draw_board
     puts
-    puts "You have " + @misses.to_s + " chances left."
+    puts
+    puts
+    puts "Chosen letters: " + @chosen_letters.join(", ")
+    puts "You have " + @chances.to_s + " chances left."
+    puts 
+    puts @game_state   
+    puts
   end
 
-  def redraw_board guesses, guess, word_length
+  def update_state guesses, guess, word_length
+    x = 0
+    @chosen_letters << guess
+    if guesses.empty?
+      @chances -= 1
+      if @chances == 0
+        puts "You lost!"
+        exit
+      end
+    end
     word_length.times do |i|
-      if i == 
-    puts guesses
-    puts guess
+      if i == guesses[x]
+        @game_state[i*2] = guess
+        x += 1
+      end
+    end
+  end
+
+  def set_game_state word_length
+    word_length.times do
+      @game_state << "_ "
+    end
+  end
+
+  def winner?
+    (@game_state.length / 2).times do |i|
+      if @game_state[i*2] == "_"
+        return false
+      end
+    end
+    return true
   end
 
 
