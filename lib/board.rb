@@ -4,11 +4,11 @@ class Board
     @chances = 6 
     @game_state = ""
     set_game_state(word_length)
-    draw_board
     
   end
 
   def draw_board
+    #system("clear")
     puts
     puts
     puts
@@ -24,10 +24,6 @@ class Board
     @chosen_letters << guess
     if guesses.empty?
       @chances -= 1
-      if @chances == 0
-        puts "You lost!"
-        exit
-      end
     end
     word_length.times do |i|
       if i == guesses[x]
@@ -52,6 +48,12 @@ class Board
     return true
   end
 
+  def loser?
+    if @chances == 0
+      return true
+    else false
+    end
+  end
 
 
 
